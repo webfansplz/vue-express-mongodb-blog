@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "webpack-dev-server  --config build/webpack.dev.conf.js",
     "build": "node build/build.js",
-    "api-server": "node api/index.js"
+    "api-server": "pm2 start api/index.js",
+    "stop-server": "pm2 stop api/index.js",
+    "start": "npm run dev"
   },
   "author": "",
   "license": "ISC",
@@ -44,9 +46,11 @@
     "webpack-merge": "^4.1.1"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "mongoose": "^5.0.0-rc2",
+    "pm2": "^2.9.1",
     "vue": "^2.5.13",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"

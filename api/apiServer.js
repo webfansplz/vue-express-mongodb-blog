@@ -2,26 +2,22 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import config from '../config/apiConfig';
-
 const app = express();
-
-app.use(bodyParser.urlencoded({ extended: false }));
-
-app.use('/app', require('./app'));
-app.use('/admin', require('./admin'));
 
 // 跨域设置
 app.all('*', function(req, res, next) {
-  if (req.path !== '/' && !req.path.includes('.')) {
-    res.header('Access-Control-Allow-Credentials', true);
-    // 这里获取 origin 请求头 而不是用 *
-    res.header('Access-Control-Allow-Origin', req.headers['origin'] || '*');
-    res.header('Access-Control-Allow-Headers', 'X-Requested-With');
-    res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS');
-    res.header('Content-Type', 'application/json;charset=utf-8');
-  }
+  res.header('Access-Control-Allow-Credentials', true);
+  // 这里获取 origin 请求头 而不是用 *
+  res.header('Access-Control-Allow-Origin', req.headers['origin'] || '*');
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With');
+  res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS');
+  res.header('Content-Type', 'application/json;charset=utf-8');
   next();
 });
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use('/', require('./app'));
+app.use('/admin', require('./admin'));
 
 mongoose.Promise = global.Promise;
 
