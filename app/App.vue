@@ -10,9 +10,9 @@ import fetch from './utils/fetch';
 export default {
   name: 'app',
   created() {
-    fetch('get', 'articles').then(res => {
-      console.log(res);
-    });
+    // fetch('get', 'articles').then(res => {
+    //   console.log(res);
+    // });
   }
 };
 </script>
