@@ -17,9 +17,9 @@ app.all('*', function(req, res, next) {
   res.header('Content-Type', 'application/json;charset=utf-8');
   next();
 });
-
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use('/', require('./app'));
+app.use(bodyParser.json());
+// app.use('/', require('./app'));
 app.use('/admin', require('./admin'));
 
 mongoose.Promise = global.Promise;

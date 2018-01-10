@@ -37,7 +37,6 @@ export default (type, url, params) => {
     reqConfig.data = params;
     axios.defaults.headers['Content-Type'] = 'application/json';
   }
-
   return new Promise((resolve, reject) => {
     axios(reqConfig)
       .then(res => {

@@ -1,12 +1,8 @@
 import express from 'express';
-import { md5, resMsg } from './utils';
-import User from '../models/user';
-
+import { register, login } from '../server/user/user';
 const router = express.Router();
-// router.post('/register', (req, res) => {
-//   let user = new User({
-//     username: req.username,
-//     passage: md5(req.passage)
-//   });
-// });
+//注册
+router.post('/register', register);
+//登录
+router.post('/login', login);
 module.exports = router;
