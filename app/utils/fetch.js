@@ -5,8 +5,12 @@ axios.defaults.baseURL = config.apiPort
   ? `${config.apiHost}:${config.apiPort}`
   : `${config.apiHost}`;
 
-// axios.defaults.headers.common['Authorization'] = '';
-
+//检测是否有token和token是否过期!
+const token = window.localStorage.getItem('token');
+const expires = window.localStorage.getItem('expires');
+if (token) {
+  axios.defaults.headers.common['Authorization'] = token;
+}
 // //请求拦截器
 // axios.interceptors.request.use(
 //   config => {

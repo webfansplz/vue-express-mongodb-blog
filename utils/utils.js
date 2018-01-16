@@ -12,6 +12,7 @@ module.exports = {
       message
     });
   },
+  //生成token
   createToken(userName) {
     //base64编码
     let base64UrlEncode = obj =>
@@ -38,32 +39,16 @@ module.exports = {
     let signature = hash.update(header_paylood).digest('base64');
     return `${header_paylood}.${signature}`;
   },
-  decodeToken(token) {
-    //base64解码
-    let base64UrlDecode = obj =>
-      JSON.parse(Buffer.from(obj, 'base64').toString('utf8'));
-    //加盐secret
-    const secret = 'hello-world.com';
-    let tokenArr = token.split('.');
-    if (tokenArr.length < 3) {
-      return false;
-    }
-    let payload = base64UrlDecode(tokenArr[1]);
-    let header_paylood = `${tokenArr[0]}.${tokenArr[1]}`;
-    let hash = crypto.createHmac('sha256', secret);
-    let signature = hash.update(header_paylood).digest('base64');
-    return {
-      payload,
-      signature,
-      PrevSignature: tokenArr[2]
-    };
-  },
+  //验证token
   checkToken(token) {
     let resDecode = decodeToken(token);
-    let { payload, signature, PrevSignature } = token;
     if (!resDecode) return false;
-    //是否过期
-    if (payload.exp - parseInt(Date.now() / 1000) <= 0) {
+    let { payload, signature, PrevSignature } = resDecode;
+    //是否过期或者token不对!
+    if (
+      payload.exp - parseInt(Date.now() / 1000) <= 0 ||
+      signature != PrevSignature
+    ) {
       return false;
     }
     if (signature == PrevSignature) {
@@ -71,3 +56,24 @@ module.exports = {
     }
   }
 };
+
+function decodeToken(token) {
+  //base64解码
+  let base64UrlDecode = obj =>
+    JSON.parse(Buffer.from(obj, 'base64').toString('utf8'));
+  //加盐secret
+  const secret = 'hello-world.com';
+  let tokenArr = token.split('.');
+  if (tokenArr.length < 3) {
+    return false;
+  }
+  let payload = base64UrlDecode(tokenArr[1]);
+  let header_paylood = `${tokenArr[0]}.${tokenArr[1]}`;
+  let hash = crypto.createHmac('sha256', secret);
+  let signature = hash.update(header_paylood).digest('base64');
+  return {
+    payload,
+    signature,
+    PrevSignature: tokenArr[2]
+  };
+}

@@ -9,18 +9,17 @@
 import fetch from './utils/fetch';
 export default {
   name: 'app',
+  data() {
+    return {};
+  },
   created() {
+    fetch('post', 'admin/register', {
+      userName: 'caishaohui',
+      passWord: '123456'
+    });
     // fetch('get', 'articles').then(res => {
     //   console.log(res);
     // });
-    // fetch('post', 'admin/register', {
-    //   userName: 'caishaohui',
-    //   passWord: '123456'
-    // });
-    fetch('post', 'admin/login', {
-      userName: 'webfansplz',
-      passWord: '123456'
-    });
   }
 };
 </script>

@@ -1,11 +1,5 @@
 import User from '../../models/user';
-import {
-  md5,
-  resMsg,
-  createToken,
-  decodeToken,
-  checkToken
-} from '../../utils/utils';
+import { md5, resMsg, createToken, checkToken } from '../../utils/utils';
 module.exports = {
   register: async (req, res) => {
     let { userName, passWord } = req.body;
@@ -40,10 +34,10 @@ module.exports = {
       resMsg(res, 3, 200, {}, '用户名不存在!');
       return;
     } else {
+      let { username } = userInfo;
       let token = createToken(userName);
-      let token1 = decodeToken(token);
-      console.log(token);
-      console.log(token1);
+      let expires = parseInt(Date.now() / 1000 + 86400);
+      resMsg(res, 0, 200, { token, username, expires }, '登录成功!');
     }
   }
 };
