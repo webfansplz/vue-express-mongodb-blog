@@ -12,15 +12,7 @@ export default {
   data() {
     return {};
   },
-  created() {
-    fetch('post', 'admin/register', {
-      userName: 'caishaohui',
-      passWord: '123456'
-    });
-    // fetch('get', 'articles').then(res => {
-    //   console.log(res);
-    // });
-  }
+  created() {}
 };
 </script>
 <style lang="less">

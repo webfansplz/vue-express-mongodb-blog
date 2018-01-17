@@ -5,7 +5,7 @@ module.exports = {
     let hmac = crypto.createHmac('md5', 'boom');
     return hmac.update(pwd).digest('hex');
   },
-  resMsg(res, state = 3, code = 500, data = {}, message = 'server error') {
+  responseMsg(res, code = 500, state = 3, data = {}, message = 'server error') {
     return res.status(code).json({
       state,
       data,
