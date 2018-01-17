@@ -7,34 +7,30 @@
   </div>
 </template>
 <script>
-import fetch from './utils/fetch';
+import fetch from "./utils/fetch";
 
 export default {
-  name: 'app',
+  name: "app",
   data() {
     return {};
   },
   created() {},
   mounted() {
-    require('./utils/particle');
+    //实例化粒子连线背景
+    require("./utils/particle");
   }
 };
 </script>
 <style lang="less">
-* {
-  margin: 0;
-  padding: 0;
-}
-body,
-html {
-  width: 100%;
-  height: 100%;
-}
+@import url("assets/style/common");
+@import url("assets/style/mixin");
 #app {
-  height: 100%;
-}
-canvas {
-  width: 100%;
-  height: 100%;
+  .mx_wh(100%,100%);
+  background-color: #eee;
+  #canvas {
+    .mx_fixtl(0,0);
+    z-index: 0;
+    .mx_wh(100%,100%);
+  }
 }
 </style>

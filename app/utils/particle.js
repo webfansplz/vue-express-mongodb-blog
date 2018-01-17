@@ -1,4 +1,3 @@
-// 参考资料：https://github.com/sunshine940326/canvas-nest
 class Circle {
   //创建对象
   //以一个圆为对象
@@ -20,7 +19,7 @@ class Circle {
     //arc() 方法使用一个中心点和半径，为一个画布的当前子路径添加一条弧。
     ctx.arc(this.x, this.y, this.r, 0, 360);
     ctx.closePath();
-    ctx.fillStyle = 'rgba(204, 204, 204, 0.3)';
+    ctx.fillStyle = "rgba(204, 204, 204, 0.3)";
     ctx.fill();
   }
   drawLine(ctx, _circle) {
@@ -33,7 +32,7 @@ class Circle {
       ctx.moveTo(this.x, this.y); //起始点
       ctx.lineTo(_circle.x, _circle.y); //终点
       ctx.closePath();
-      ctx.strokeStyle = 'rgba(204, 204, 204, 0.3)';
+      ctx.strokeStyle = "rgba(204, 204, 204, 0.3)";
       ctx.stroke();
     }
   }
@@ -59,111 +58,69 @@ class currentCirle extends Circle {
     ctx.arc(this.x, this.y, this.r, 0, 360);
     ctx.closePath();
     //ctx.fillStyle = 'rgba(0,0,0,' + (parseInt(Math.random() * 100) / 100) + ')'
-    ctx.fillStyle = 'rgba(255, 77, 54, 0.6)';
+    ctx.fillStyle = "rgba(255, 77, 54, 0.6)";
     ctx.fill();
   }
 }
-window.requestAnimationFrame =
-  window.requestAnimationFrame ||
-  window.mozRequestAnimationFrame ||
-  window.webkitRequestAnimationFrame ||
-  window.msRequestAnimationFrame;
-let canvas = document.getElementById('canvas');
-let ctx = canvas.getContext('2d');
-let w = (canvas.width = canvas.offsetWidth);
-let h = (canvas.height = canvas.offsetHeight);
-let circles = [];
-let current_circle = new currentCirle(0, 0);
-let draw = function() {
-  ctx.clearRect(0, 0, w, h);
-  for (let i = 0; i < circles.length; i++) {
-    circles[i].move(w, h);
-    circles[i].drawCircle(ctx);
-    for (let j = i + 1; j < circles.length; j++) {
-      circles[i].drawLine(ctx, circles[j]);
+
+class Particle {
+  constructor() {
+    this.ctx = null;
+    this.w = 0;
+    this.h = 0;
+    this.circles = [];
+    this.current_circle = null;
+    this.createEle();
+  }
+  createEle() {
+    let canvas = document.getElementById("canvas");
+    this.ctx = canvas.getContext("2d");
+    this.w = canvas.width = canvas.offsetWidth;
+    this.h = canvas.height = canvas.offsetHeight;
+    this.current_circle = new currentCirle(0, 0);
+    this.run();
+  }
+  draw = () => {
+    let raFrame =
+      window.requestAnimationFrame ||
+      window.mozRequestAnimationFrame ||
+      window.webkitRequestAnimationFrame ||
+      window.msRequestAnimationFrame;
+    this.ctx.clearRect(0, 0, this.w, this.h);
+    this.circles.forEach((v, i) => {
+      v.move(this.w, this.h);
+      v.drawCircle(this.ctx);
+      for (let j = i + 1; j < this.circles.length; j++) {
+        v.drawLine(this.ctx, this.circles[j]);
+      }
+    });
+    if (this.current_circle.x) {
+      this.current_circle.drawCircle(this.ctx);
+      this.circles.map(k => {
+        this.current_circle.drawLine(this.ctx, k);
+      });
     }
-  }
-  if (current_circle.x) {
-    current_circle.drawCircle(ctx);
-    for (var k = 1; k < circles.length; k++) {
-      current_circle.drawLine(ctx, circles[k]);
+    raFrame(this.draw);
+  };
+  init(num) {
+    while (num--) {
+      this.circles.push(
+        new Circle(Math.random() * this.w, Math.random() * this.h)
+      );
     }
+    this.draw();
   }
-  requestAnimationFrame(draw);
-};
-let init = function(num) {
-  for (var i = 0; i < num; i++) {
-    circles.push(new Circle(Math.random() * w, Math.random() * h));
+  run() {
+    this.init(22);
+    window.onmousemove = e => {
+      e = e || window.event;
+      this.current_circle.x = e.clientX;
+      this.current_circle.y = e.clientY;
+    };
+    window.onmouseout = () => {
+      this.current_circle.x = null;
+      this.current_circle.y = null;
+    };
   }
-  draw();
-};
-init(80);
-// window.addEventListener('load', init(60));
-// window.onmousemove = function(e) {
-//   e = e || window.event;
-//   current_circle.x = e.clientX;
-//   current_circle.y = e.clientY;
-// };
-// window.onmouseout = function() {
-//   current_circle.x = null;
-//   current_circle.y = null;
-// };
-
-// class Particle {
-//   constructor() {
-//     this.ctx = null;
-//     this.w = 0;
-//     this.h = 0;
-//     this.circles = [];
-//     this.current_circle = null;
-//     this.createEle();
-//   }
-//   createEle() {
-//     let canvas = document.getElementById('canvas');
-//     this.ctx = canvas.getContext('2d');
-//     this.w = canvas.width = canvas.offsetWidth;
-//     this.h = canvas.height = canvas.offsetHeight;
-//     this.current_circle = new currentCirle(0, 0);
-//     this.run();
-//   }
-//   draw() {
-//     this.ctx.clearRect(0, 0, this.w, this.h);
-//     this.circles.forEach((v, i) => {
-//       v.move(this.w, this.h);
-//       v.drawCircle(this.ctx);
-//       for (let j = i + 1; j < this.circles.length; j++) {
-//         v.drawLine(this.ctx, this.circles[j]);
-//       }
-//     });
-
-//     if (this.current_circle.x) {
-//       this.current_circle.drawCircle(this.ctx);
-//       this.circles.map(k => {
-//         this.current_circle.drawLine(this.ctx, k);
-//       });
-//     }
-//     window.requestAnimationFrame(this.draw);
-//   }
-//   init(num) {
-//     for (let i = 0; i < num.length; num++) {
-//       this.circles.push(
-//         new Circle(Math.random() * this.w, Math.random() * this.h)
-//       );
-//     }
-//     this.draw();
-//   }
-//   run() {
-//     this.init(60);
-
-//     window.onmousemove = e => {
-//       e = e || window.event;
-//       this.current_circle.x = e.clientX;
-//       this.current_circle.y = e.clientY;
-//     };
-//     window.onmouseout = () => {
-//       this.current_circle.x = null;
-//       this.current_circle.y = null;
-//     };
-//   }
-// }
-// new Particle();
+}
+new Particle();
