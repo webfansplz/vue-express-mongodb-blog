@@ -63,8 +63,6 @@
 
 // flex 布局盒模型
 .mx_flex {
-  display: -webkit-box;
-  display: -moz-box;
   display: flex;
   /* flex容器 */
 }
@@ -80,29 +78,15 @@
 
 // flex布局容器属性设置
 .mx_flex_content {
-  -moz-flex-direction: row;
-  -o-flex-direction: row;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
   flex-direction: row;
-  -moz-flex-wrap: wrap;
-  -o-flex-wrap: wrap;
   flex-wrap: wrap;
-  -webkit-box-pack: justify;
-  -moz-box-pack: justify;
   justify-content: space-between;
 }
 
 // flex 水平垂直居中
 .mx_flex_mid {
-  display: -webkit-box;
-  display: -moz-box;
   display: flex;
-  -webkit-box-pack: center;
-  -moz-box-pack: center;
   justify-content: center;
-  -webkit-box-align: center;
-  -moz-box-align: center;
   align-items: center;
 }
 
@@ -142,7 +126,7 @@
 }
 
 .halfBorder:after {
-  content: "  ";
+  content: '  ';
   position: absolute;
   left: 0;
   top: 0;

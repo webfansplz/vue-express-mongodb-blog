@@ -37,7 +37,7 @@ module.exports = {
     )}`;
     let hash = crypto.createHmac('sha256', secret);
     let signature = hash.update(header_paylood).digest('base64');
-    return `${header_paylood}.${signature}`;
+    return { token: `${header_paylood}.${signature}`, expires: payload.exp };
   },
   //验证token
   checkToken(token) {

@@ -7,7 +7,7 @@
 </template>
 <script>
 export default {
-  name: "user",
+  name: 'user',
   data() {
     return {};
   }

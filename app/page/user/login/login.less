@@ -1,0 +1,29 @@
+#login {
+  .mx_wh(100%,100%);
+  .mx_flex_mid;
+  .mx_fixtl(0,0);
+  z-index: 1;
+  .login_box {
+    flex-wrap: wrap;
+    justify-content: center;
+    .txt_box {
+      .mx_hlh(50px,50px);
+      text-align: center;
+      /deep/ .ivu-input {
+        .mx_whlh(300px,45px,45px);
+        text-align: center;
+      }
+    }
+  }
+  .btn_box {
+    margin-top: 10px;
+    text-align: center;
+    /deep/ .ivu-btn-info {
+      .mx_whlh(300px,45px,45px);
+      .mx_fc(16px,#cccee1);
+      .mx_bd(1px,#dddee1);
+      background-color: #fff;
+      padding: 0;
+    }
+  }
+}

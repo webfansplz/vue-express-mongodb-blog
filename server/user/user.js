@@ -19,7 +19,7 @@ module.exports = {
     } else {
       let user = await new User({
         username: userName,
-        password: passWord
+        password: md5(passWord)
       });
       await user.save();
       let { username } = await User.findOne({ username: userName });
@@ -32,12 +32,17 @@ module.exports = {
     //用户名不存在
     if (!userInfo) {
       responseMsg(res, 200, 3, '', '用户名不存在!');
-      return;
+    } else if (userInfo.password != md5(passWord)) {
+      responseMsg(res, 200, 3, '', '密码错误!');
     } else {
       let { username } = userInfo;
-      let token = createToken(userName);
-      let expires = parseInt(Date.now() / 1000 + 86400);
-      responseMsg(res, 200, 0, { token, username, expires }, '登录成功!');
+      responseMsg(
+        res,
+        200,
+        0,
+        { username, ...createToken(userName) },
+        '登录成功!'
+      );
     }
   }
 };

@@ -4,6 +4,6 @@ module.exports = (req, res, next) => {
   if (authorization && checkToken(authorization)) {
     next();
   } else {
-    responseMsg(res, 405, 3, '', 'token验证失败!');
+    responseMsg(res, 401, 3, '', 'token验证失败!');
   }
 };
