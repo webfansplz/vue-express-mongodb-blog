@@ -20,6 +20,7 @@ app.all('*', (req, res, next) => {
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use('/', require('./app'));
 app.use('/admin', require('./admin'));
 
 mongoose.Promise = global.Promise;

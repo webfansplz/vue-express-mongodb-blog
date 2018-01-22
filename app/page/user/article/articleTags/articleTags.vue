@@ -15,13 +15,15 @@ export default {
   methods: {
     //分割数组
     splitArray(ary, size) {
-      const res = [];
-      for (let i = 0; i < Math.ceil(ary.length / size); i++) {
-        let start = i * size;
-        let end = start + size;
-        res.push(ary.slice(start, end));
+      let i = Math.ceil(ary.length / size),
+        count = 0,
+        box = [];
+      while (count < i) {
+        let s = count * size;
+        box.push(ary.slice(s, s + size));
+        count++;
       }
-      return res;
+      return box;
     }
   },
   computed: {

@@ -7,23 +7,27 @@
   </div>
 </template>
 <script>
-import fetch from "./utils/fetch";
+import fetch from './utils/fetch';
 
 export default {
-  name: "app",
+  name: 'app',
   data() {
     return {};
   },
-  created() {},
+  created() {
+    fetch('get', '/tags').then(res => {
+      console.log(res);
+    });
+  },
   mounted() {
     //实例化粒子连线背景
-    require("./utils/particle");
+    require('./utils/particle');
   }
 };
 </script>
 <style lang="less">
-@import url("assets/style/common");
-@import url("assets/style/mixin");
+@import url('assets/style/common');
+@import url('assets/style/mixin');
 #app {
   .mx_wh(100%,100%);
   background-color: #eee;
