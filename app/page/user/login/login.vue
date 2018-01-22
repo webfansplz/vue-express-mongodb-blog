@@ -66,6 +66,5 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-@import url('../../../assets/style/mixin');
 @import url('./login.less');
 </style>

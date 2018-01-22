@@ -27,6 +27,12 @@
   height: @height;
   line-height: @line-height;
 }
+//相对定义定义top,left值
+.mx_reltl(@top,@left) {
+  position: relative;
+  top: @top;
+  left: @left;
+}
 // 固定定位定义top,left值
 .mx_fixtl(@top, @left) {
   position: fixed;

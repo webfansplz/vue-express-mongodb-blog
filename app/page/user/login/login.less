@@ -1,3 +1,4 @@
+@import url('../../../assets/style/mixin');
 #login {
   .mx_wh(100%,100%);
   .mx_flex_mid;
@@ -12,6 +13,13 @@
       /deep/ .ivu-input {
         .mx_whlh(300px,45px,45px);
         text-align: center;
+        box-shadow: 0 0 8px 5px #dddee1;
+        animation: shadowBoom 1.2s alternate infinite;
+      }
+      &:nth-child(2) {
+        /deep/ .ivu-input {
+          animation-delay: 0.4s;
+        }
       }
     }
   }
@@ -24,6 +32,8 @@
       .mx_bd(1px,#dddee1);
       background-color: #fff;
       padding: 0;
+      animation: shadowBoom 1.2s alternate infinite;
+      animation-delay: 0.8s;
     }
   }
 }

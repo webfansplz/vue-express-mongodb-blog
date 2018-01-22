@@ -1,4 +1,5 @@
-// reset
+//iconfont
+@import url('//at.alicdn.com/t/font_547776_51ijb62z1a21q0k9.css');
 body,
 div,
 span,
@@ -33,7 +34,7 @@ select {
   font-style: normal;
   text-decoration: none;
   border: none;
-  font-family: "Microsoft Yahei", sans-serif;
+  font-family: 'Microsoft Yahei', sans-serif;
   &:focus {
     outline: none;
   }
@@ -43,6 +44,8 @@ body {
   height: 100%;
   width: 100%;
   background-color: #fff;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
+    Microsoft YaHei, Arial, sans-serif;
 }
 // 定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸
 ::-webkit-scrollbar {
@@ -64,10 +67,10 @@ body {
   background-color: #f33;
 }
 
-input[type="button"],
-input[type="submit"],
-input[type="search"],
-input[type="reset"] {
+input[type='button'],
+input[type='submit'],
+input[type='search'],
+input[type='reset'] {
   -webkit-appearance: none;
 }
 
@@ -97,4 +100,18 @@ textarea {
   /* Internet Explorer 10+ */
   color: #dedede;
   text-align: center;
+}
+@keyframes shadowBoom {
+  0% {
+    box-shadow: 0 0 8px 0px #cccee1;
+  }
+  25% {
+    box-shadow: 0 0 8px 1px #dddee1;
+  }
+  50% {
+    box-shadow: 0 0 8px 3px #dedede;
+  }
+  100% {
+    box-shadow: 0 0 8px 5px #dddee1;
+  }
 }
