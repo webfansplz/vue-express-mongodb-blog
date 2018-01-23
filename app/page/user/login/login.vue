@@ -40,10 +40,6 @@ export default {
         return true;
       }
     },
-    //是否登录
-    checkLogin() {
-      this.checkUsername() && this.checkPassword() && this.login();
-    },
     //登录
     login() {
       let userInfo = {
@@ -61,6 +57,10 @@ export default {
           this.$Message.warning(res.message);
         }
       });
+    },
+    //是否登录
+    checkLogin() {
+      this.checkUsername() && this.checkPassword() && this.login();
     }
   }
 };

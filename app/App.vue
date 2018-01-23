@@ -14,11 +14,7 @@ export default {
   data() {
     return {};
   },
-  created() {
-    fetch('get', '/tags').then(res => {
-      console.log(res);
-    });
-  },
+  created() {},
   mounted() {
     //实例化粒子连线背景
     require('./utils/particle');
