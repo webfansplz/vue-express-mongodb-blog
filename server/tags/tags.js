@@ -27,5 +27,18 @@ module.exports = {
       responseMsg();
     }
   },
-  delTags: async (req, res) => {}
+  delTags: async (req, res) => {
+    try {
+      let { id } = req.body;
+      await Tags.remove({ _id: id });
+      let tags = await Tags.findOne({ _id: id });
+      if (!tags) {
+        responseMsg(res, 200, 0, '', '删除成功!');
+      } else {
+        responseMsg(res, 200, 3, '', '删除失败!');
+      }
+    } catch (err) {
+      responseMsg();
+    }
+  }
 };
