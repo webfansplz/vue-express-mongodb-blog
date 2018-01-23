@@ -13,13 +13,13 @@ module.exports = {
   },
   addTags: async (req, res) => {
     try {
-      let { tagName } = req.body;
-      let tags = await Tags.findOne({ name: tagName });
+      let { name } = req.body;
+      let tags = await Tags.findOne({ name: name });
       if (tags) {
-        responseMsg(res, 200, 0, '', '标签已存在');
+        responseMsg(res, 200, 3, '', '标签已存在');
       } else {
         let tag = await new Tags({
-          name: tagName
+          name: name
         }).save();
         responseMsg(res, 200, 0, tag, '添加成功!');
       }
