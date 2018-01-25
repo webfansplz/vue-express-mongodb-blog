@@ -2,12 +2,12 @@
 <div id="userMenu">
     <nav class="userMenu">
       <ul>
-        <li v-for="(item,v) in menuList" :key="v" @click="toggleMenu(item,v)" :class="{'active':v==tabIndex}">
+        <li v-for="(item,v) in menuList" :key="v" :class="{'active':v==tabIndex}" @click="toggleMenu(item,v)">
           <i :class="`ic ic-${item.icon}`"></i>
           {{item.name}}
           <div class="second-menu" v-if="item.children" >
             <ul>
-              <li v-for="(items,k) in item.children" :key="k" @click="toggleMenu(items)">
+              <li v-for="(items,k) in item.children" :key="k" :class="{'active':`/${items.path}`==$route.path}" @click="toggleMenu(items)">
                 {{items.name}}
               </li>
             </ul>
@@ -36,13 +36,16 @@ export default {
             {
               name: '新增文章',
               path: 'addArticle'
+            },
+            {
+              name: '文章分类',
+              path: 'cateGory'
+            },
+            {
+              name: '文章标签',
+              path: 'articleTags'
             }
           ]
-        },
-        {
-          name: '文章标签',
-          icon: 'tags',
-          path: 'articleTags'
         }
       ]
     };

@@ -3,13 +3,13 @@ import mongoose from 'mongoose';
 import autoIncrement from 'mongoose-auto-increment';
 //自增ID初始化
 autoIncrement.initialize(mongoose.connection);
-const Tags = new mongoose.Schema({
+const CateGory = new mongoose.Schema({
   name: String
 });
-Tags.plugin(autoIncrement.plugin, {
-  model: 'Tags',
+CateGory.plugin(autoIncrement.plugin, {
+  model: 'CateGory',
   fiele: 'id',
   startAt: 1,
   incrementBy: 1
 });
-module.exports = mongoose.model('Tags', Tags);
+module.exports = mongoose.model('CateGory', CateGory);

@@ -1,10 +1,13 @@
 <template>
   <div id="addArticle">
      <Form :model="formItem" :label-width="80">
-        <FormItem label="标题">
+        <FormItem label="文章标题">
             <Input v-model="formItem.input" placeholder="Enter title..."></Input>
         </FormItem>
-        <FormItem label="内容">
+        <FormItem label="文章标签">
+            <Input v-model="formItem.input" placeholder="Enter title..."></Input>
+        </FormItem>
+        <FormItem label="文章内容">
             <mavonEditor @save-content="getContent"></mavonEditor>
         </FormItem>
     </Form>

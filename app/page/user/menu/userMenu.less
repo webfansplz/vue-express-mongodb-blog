@@ -1,5 +1,6 @@
 @import url('../../../assets/style/mixin');
-@bgColor: #4f546a;
+// @bgColor: #4f546a;
+@bgColor: #29425f;
 @itemBgColor: #f59275;
 #userMenu {
   .userMenu {
@@ -47,6 +48,9 @@
           li {
             transition: all 0.5s;
             &:hover {
+              background-color: @itemBgColor;
+            }
+            &.active {
               background-color: @itemBgColor;
             }
           }

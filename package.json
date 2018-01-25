@@ -55,6 +55,8 @@
     "marked": "^0.3.12",
     "mavon-editor": "^2.4.16",
     "mongoose": "^5.0.0-rc2",
+    "mongoose-auto-increment": "^5.0.1",
+    "mongoose-paginate": "^5.0.3",
     "pm2": "^2.9.1",
     "vue": "^2.5.13",
     "vue-router": "^3.0.1",

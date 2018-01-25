@@ -29,6 +29,13 @@ const AddArticle = r =>
     () => r(require('../page/user/article/addArticle/addArticle')),
     ' login'
   );
+//文章分类
+const CateGory = r =>
+  require.ensure(
+    [],
+    () => r(require('../page/user/article/cateGory/cateGory')),
+    ' login'
+  );
 //文章标签
 const ArticleTags = r =>
   require.ensure(
@@ -59,6 +66,10 @@ const router = new Router({
         {
           path: '/addArticle',
           component: AddArticle
+        },
+        {
+          path: '/cateGory',
+          component: CateGory
         },
         {
           path: '/articleTags',
