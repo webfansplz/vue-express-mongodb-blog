@@ -1,6 +1,7 @@
 import User from '../../models/user';
 import { md5, responseMsg, createToken } from '../../utils/utils';
 module.exports = {
+  //注册
   register: async (req, res) => {
     let { userName, passWord } = req.body;
     let userInfo = await User.findOne({ username: userName });
@@ -26,6 +27,7 @@ module.exports = {
       responseMsg(res, 200, 0, { username: username }, '注册成功!');
     }
   },
+  //登录
   login: async (req, res) => {
     let { userName, passWord } = req.body;
     let userInfo = await User.findOne({ username: userName });
@@ -44,5 +46,11 @@ module.exports = {
         '登录成功!'
       );
     }
+  },
+  //图片上传
+  upload: async (req, res) => {
+    let { image } = req.files;
+    console.log(image.name);
+    responseMsg(res, 200, 0, '', image.name);
   }
 };

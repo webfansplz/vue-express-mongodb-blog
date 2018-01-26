@@ -1,4 +1,5 @@
 import express from 'express';
+import path from 'path';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import config from '../config/apiConfig';
@@ -18,8 +19,9 @@ app.all('*', (req, res, next) => {
   next();
 });
 
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use('/', express.static(path.join(__dirname, '..', 'static')));
 app.use('/', require('./app'));
 app.use('/admin', require('./admin'));
 

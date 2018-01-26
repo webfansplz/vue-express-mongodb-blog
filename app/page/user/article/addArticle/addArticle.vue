@@ -1,8 +1,8 @@
 <template>
   <div id="addArticle">
-     <Form :model="formItem" :label-width="80">
+     <Form  :label-width="80">
         <FormItem label="文章标题">
-            <Input v-model="formItem.input" placeholder="Enter title..."></Input>
+            <Input v-model="title" placeholder="Enter title..."></Input>
         </FormItem>
         <FormItem label="文章标签" class="btn-box">
             <i-button v-for="(item,i) in tagList" :key="i"  :class="{'current':tags.indexOf(item._id)>-1}" @click="chooseTaglist(item._id)">{{item.name}}</i-button>
@@ -22,17 +22,8 @@ import mavonEditor from 'components/mavonEditor/mavonEditor';
 export default {
   data() {
     return {
-      formItem: {
-        input: '',
-        select: '',
-        radio: 'male',
-        checkbox: [],
-        switch: true,
-        date: '',
-        time: '',
-        slider: [20, 50],
-        textarea: ''
-      },
+      //文章标题
+      title: '',
       //文章内容
       content: '',
       //文章标签

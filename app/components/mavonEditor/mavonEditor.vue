@@ -1,9 +1,11 @@
 <template>
   <div id="mavonEditors">
-    <mavon-editor v-model="value" :toolbars="toolbarsObj" @save="saveContent"/>
+    <mavon-editor v-model="value" :toolbars="toolbarsObj" ref="editor" @save="saveContent" @imgAdd="uploadImg" @imgDel="delImg"/>
   </div>
 </template>
 <script>
+import config from '../../../config/apiConfig';
+import axios from 'axios';
 import marked from 'marked';
 export default {
   name: 'mavonEditors',
@@ -48,6 +50,24 @@ export default {
   methods: {
     saveContent(val) {
       this.$emit('save-content', marked(val));
+    },
+    uploadImg(pos, file) {
+      let reqUrl = config.apiPort
+        ? `${config.apiHost}:${config.apiPort}`
+        : `${config.apiHost}`;
+      let formdata = new FormData();
+      formdata.append('image', file);
+      axios({
+        url: `${reqUrl}/admin/upload`,
+        method: 'post',
+        data: formdata,
+        headers: { 'Content-Type': 'multipart/form-data' }
+      }).then(res => {
+        console.log(res);
+      });
+    },
+    delImg(pos, file) {
+      console.log(pos, file);
     }
   }
 };
