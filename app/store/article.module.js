@@ -48,6 +48,11 @@ export default {
     async ['article/addCategory'](context, payload) {
       let res = await fetch('post', 'category', payload);
       return res;
+    },
+    //图片上传
+    async ['article/upload'](content, payload) {
+      let res = await fetch('post', 'admin/upload', payload);
+      return res;
     }
   },
   getters: {}

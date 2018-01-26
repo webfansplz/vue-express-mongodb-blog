@@ -4,7 +4,6 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import config from '../config/apiConfig';
 const app = express();
-
 // 跨域设置
 app.all('*', (req, res, next) => {
   res.header('Access-Control-Allow-Credentials', true);
@@ -19,9 +18,9 @@ app.all('*', (req, res, next) => {
   next();
 });
 
+app.use('/', express.static(path.join(__dirname, './', 'static')));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use('/', express.static(path.join(__dirname, '..', 'static')));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', require('./app'));
 app.use('/admin', require('./admin'));
 

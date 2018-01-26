@@ -1,5 +1,9 @@
 import User from '../../models/user';
 import { md5, responseMsg, createToken } from '../../utils/utils';
+import { apiHost, apiPort } from '../../config/apiConfig';
+import formidable from 'formidable';
+import fs from 'fs';
+import path from 'path';
 module.exports = {
   //注册
   register: async (req, res) => {
@@ -49,8 +53,22 @@ module.exports = {
   },
   //图片上传
   upload: async (req, res) => {
-    let { image } = req.files;
-    console.log(image.name);
-    responseMsg(res, 200, 0, '', image.name);
+    let { name, cxt } = req.body;
+    let s = cxt.replace(/^data:image\/\w+;base64,/, ''); //去掉base64码前面部分data:image/png;base64
+    let img = new Buffer(s, 'base64'); //base64->buffer对象
+    let url = apiPort ? `${apiHost}:${apiPort}` : `${apiHost}`;
+    let imgPath = `./api/static/${name}`;
+    fs.readFile(imgPath, (err, data) => {
+      //图片已存在,直接读取覆盖
+      if (data) {
+        fs.readFile(imgPath, img, (err, result) => {
+          responseMsg(res, 200, 0, { imgUrl: path.join(url, imgPath) }, 'ok');
+        });
+      } else {
+        fs.writeFile(imgPath, img, err => {
+          console.log(err);
+        });
+      }
+    });
   }
 };
