@@ -13,6 +13,11 @@
         <FormItem label="文章内容">
             <mavonEditor @save-content="getContent"></mavonEditor>
         </FormItem>
+        <FormItem label="公布程度">
+          <i-button>公开</i-button>
+          <i-button>不公开</i-button>
+          <i-button>登录公开</i-button>          
+        </FormItem>
     </Form>
   </div>
 </template>

@@ -61,12 +61,18 @@ module.exports = {
     fs.readFile(imgPath, (err, data) => {
       //图片已存在,直接读取覆盖
       if (data) {
+        if (err) {
+          responseMsg();
+        }
         fs.readFile(imgPath, img, (err, result) => {
-          responseMsg(res, 200, 0, { imgUrl: path.join(url, imgPath) }, 'ok');
+          responseMsg(res, 200, 0, { imgUrl: `${url}/${name}` }, 'ok');
         });
       } else {
         fs.writeFile(imgPath, img, err => {
-          console.log(err);
+          if (err) {
+            responseMsg();
+          }
+          responseMsg(res, 200, 0, { imgUrl: `${url}/${name}` }, 'ok');
         });
       }
     });

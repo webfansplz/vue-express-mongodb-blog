@@ -22,7 +22,7 @@ export default {
         quote: true, // 引用
         ol: true, // 有序列表
         ul: true, // 无序列表
-        link: true, // 链接
+        // link: true, // 链接
         imagelink: true, // 图片链接
         code: true, // code
         table: true, // 表格
@@ -56,7 +56,8 @@ export default {
           cxt: file.miniurl
         })
         .then(res => {
-          console.log(res);
+          this.$refs.editor.$img2Url(pos, res.data.data.imgUrl);
+          console.log(res.data.data.imgUrl);
         });
     },
     delImg(pos) {
