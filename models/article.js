@@ -9,8 +9,8 @@ autoIncrement.initialize(mongoose.connection);
 const Articles = new mongoose.Schema({
   title: String, //文章标题
   content: String, //文章内容
-  viewCount: Number, //浏览次数
-  commentCount: Number, //评论次数
+  // viewCount: Number, //浏览次数
+  // commentCount: Number, //评论次数
   time: String, //发表时间
   coverImg: String, //封面图片
   author: String, //作者
