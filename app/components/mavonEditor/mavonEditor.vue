@@ -1,6 +1,6 @@
 <template>
   <div id="mavonEditors">
-    <mavon-editor v-model="value" :toolbars="toolbarsObj" ref="editor" @save="saveContent" @imgAdd="uploadImg" @imgDel="delImg"/>
+    <mavon-editor v-model="value" :toolbars="toolbarsObj" ref="editor" @save="saveContent" @change="saveContent" @imgAdd="uploadImg" @imgDel="delImg"/>
   </div>
 </template>
 <script>

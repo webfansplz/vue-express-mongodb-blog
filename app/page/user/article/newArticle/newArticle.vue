@@ -37,6 +37,7 @@ import config from '../../../../../config/apiConfig';
 import { mapState } from 'vuex';
 import mavonEditor from 'components/mavonEditor/mavonEditor';
 export default {
+  name: 'newArticle',
   data() {
     return {
       //文章标题
@@ -58,7 +59,8 @@ export default {
   methods: {
     //获取内容
     getContent(val) {
-      console.log(val);
+      this.content = val;
+      // console.log(val);
     },
     //选择文章标签
     chooseTaglist(id) {
@@ -113,6 +115,17 @@ export default {
     //保存文章
     saveData() {
       if (!this.testArticle()) return false;
+      let reqData = {
+        title: this.title,
+        content: this.content,
+        coverImg: this.coverImg,
+        tags: this.tags,
+        category: this.category,
+        isPublish: this.isPublish
+      };
+      this.$store.dispatch('article/newArticle', reqData).then(res => {
+        console.log(res);
+      });
     }
   },
   components: {

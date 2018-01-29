@@ -50,8 +50,13 @@ export default {
       return res;
     },
     //图片上传
-    async ['article/upload'](content, payload) {
+    async ['article/upload'](context, payload) {
       let res = await fetch('post', 'admin/upload', payload);
+      return res;
+    },
+    //新增文章
+    async ['article/newArticle'](content, payload) {
+      let res = await fetch('put', 'article/newArticle', payload);
       return res;
     }
   },

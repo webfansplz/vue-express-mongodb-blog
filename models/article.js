@@ -5,7 +5,6 @@ import autoIncrement from 'mongoose-auto-increment';
 import paginate from 'mongoose-paginate';
 //自增ID初始化
 autoIncrement.initialize(mongoose.connection);
-
 const Articles = new mongoose.Schema({
   title: String, //文章标题
   content: String, //文章内容
@@ -13,7 +12,7 @@ const Articles = new mongoose.Schema({
   // commentCount: Number, //评论次数
   time: String, //发表时间
   coverImg: String, //封面图片
-  author: String, //作者
+  // author: String, //作者
   tags: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tags' }], //标签
   category: [
     { type: mongoose.Schema.Types.ObjectId, ref: 'CateGory', required: true }

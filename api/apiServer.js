@@ -21,6 +21,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', require('./app'));
 app.use('/admin', require('./admin'));
+app.use('/article', require('./article'));
 app.use('/', express.static(path.join(__dirname, './', 'static')));
 
 mongoose.Promise = global.Promise;

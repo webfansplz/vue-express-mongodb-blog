@@ -3,9 +3,19 @@ import { md5, responseMsg, createToken } from '../../utils/utils';
 module.exports = {
   getTags: async (req, res) => {
     try {
-      let tagList = await Tags.find()
-        .select('name')
-        .exec();
+      // let tagList = await Tags.find()
+      //   .select('name')
+      //   .exec();
+      let tagList = await Tags.aggregate([
+        {
+          $lookup: {
+            from: 'articles', //关联的表
+            localField: '_id', //关联的键
+            foreignField: 'Tags', //
+            as: 'tags'
+          }
+        }
+      ]);
       responseMsg(res, 200, 0, tagList, '查询成功!');
     } catch (err) {
       responseMsg();

@@ -3,9 +3,19 @@ import { md5, responseMsg, createToken } from '../../utils/utils';
 module.exports = {
   getCategory: async (req, res) => {
     try {
-      let cateGoryList = await CateGory.find()
-        .select('name')
-        .exec();
+      // let cateGoryList = await CateGory.find()
+      //   .select('name')
+      //   .exec();
+      let cateGoryList = await CateGory.aggregate([
+        {
+          $lookup: {
+            from: 'articles', //关联的表
+            localField: '_id', //关联的键
+            foreignField: 'CateGory', //
+            as: 'category'
+          }
+        }
+      ]);
       responseMsg(res, 200, 0, cateGoryList, '查询成功!');
     } catch (err) {
       responseMsg();
