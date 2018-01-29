@@ -9,10 +9,9 @@ module.exports = {
       if (isExist) {
         responseMsg(res, 200, 3, '', '已存在相同的文章名称!');
       } else {
-        console.log(obj);
+        console.log(req.body);
         let article = await new Article(obj).save();
-        console.log(article);
-        // responseMsg(res, 200, 0, article, '添加成功!');
+        responseMsg(res, 200, 0, article, '添加成功!');
       }
     } catch (err) {
       responseMsg();
