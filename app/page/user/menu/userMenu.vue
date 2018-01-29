@@ -35,7 +35,7 @@ export default {
             },
             {
               name: '新增文章',
-              path: 'addArticle'
+              path: 'newArticle'
             },
             {
               name: '文章分类',

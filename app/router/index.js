@@ -23,10 +23,10 @@ const ArticleList = r =>
     ' login'
   );
 //新增文章
-const AddArticle = r =>
+const NewArticle = r =>
   require.ensure(
     [],
-    () => r(require('../page/user/article/addArticle/addArticle')),
+    () => r(require('../page/user/article/newArticle/newArticle')),
     ' login'
   );
 //文章分类
@@ -64,8 +64,8 @@ const router = new Router({
           component: ArticleList
         },
         {
-          path: '/addArticle',
-          component: AddArticle
+          path: '/newArticle',
+          component: NewArticle
         },
         {
           path: '/cateGory',

@@ -64,7 +64,7 @@ module.exports = {
         if (err) {
           responseMsg();
         }
-        fs.readFile(imgPath, img, (err, result) => {
+        fs.readFile(imgPath, (err, result) => {
           responseMsg(res, 200, 0, { imgUrl: `${url}/${name}` }, 'ok');
         });
       } else {
@@ -73,6 +73,32 @@ module.exports = {
             responseMsg();
           }
           responseMsg(res, 200, 0, { imgUrl: `${url}/${name}` }, 'ok');
+        });
+      }
+    });
+  },
+  //formdata上传图片
+  uploadData: async (req, res) => {
+    let f = req.files.file;
+    let imgData = fs.readFileSync(f.path);
+    let imgPath = `./api/static/${f.name}`;
+    let url = apiPort ? `${apiHost}:${apiPort}` : `${apiHost}`;
+
+    fs.readFile(imgPath, (err, data) => {
+      //图片已存在,直接读取覆盖
+      if (data) {
+        if (err) {
+          responseMsg();
+        }
+        fs.readFile(imgPath, (err, result) => {
+          responseMsg(res, 200, 0, { imgUrl: `${url}/${f.name}` }, 'ok');
+        });
+      } else {
+        fs.writeFile(imgPath, imgData, err => {
+          if (err) {
+            responseMsg();
+          }
+          responseMsg(res, 200, 0, { imgUrl: `${url}/${f.name}` }, 'ok');
         });
       }
     });
