@@ -16,13 +16,9 @@ const Articles = new mongoose.Schema({
   // 最后修改日期
   update_at: { type: Date, default: Date.now }
 });
-// const Articles = new mongoose.Schema({
-//   title: String, //文章标题
-//   content: String //文章内容
-// });
-//
-// Articles.pre('findOneAndUpdate', next => {
-//   this.findOneAndUpdate({}, { update_at: Date.now() });
-//   next();
-// });
+
+Articles.pre('findOneAndUpdate', next => {
+  this.findOneAndUpdate({}, { update_at: Date.now() });
+  next();
+});
 module.exports = mongoose.model('Article', Articles);

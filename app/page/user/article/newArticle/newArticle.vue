@@ -11,7 +11,7 @@
             <i-button v-for="(item,i) in cateGoryList" :key="i" :class="{'current':category.indexOf(item._id)>-1}" @click="chooseArticlelist(item._id)">{{item.name}}</i-button>   
         </FormItem>
         <FormItem label="文章封面">
-             <Upload :action="uploadDataUrl" :max-size=200 :headers="{'Authorization':token}" :format="['jpg','jpeg','png']" :on-success="sucUpload" :on-remove="rmCoverImg">
+            <Upload :action="uploadDataUrl" ref="fileBox" :max-size=200 :headers="{'Authorization':token}" :format="['jpg','jpeg','png']" :on-success="sucUpload" :on-remove="rmCoverImg">
               <Button type="ghost" icon="ios-cloud-upload-outline">上传图片</Button>
             </Upload>
         </FormItem>
@@ -19,7 +19,7 @@
             <img :src="coverImg" alt="文章封面" class="coverImg">
         </FormItem>
         <FormItem label="文章内容">
-            <mavonEditor @save-content="getContent"></mavonEditor>
+            <mavonEditor @save-content="getContent" :status="clearMd"></mavonEditor>
         </FormItem>
         <FormItem label="是否发布" class="btn-box">
           <i-button :class="{'current':isPublish}" @click="isPublish=true">公开</i-button>
@@ -53,14 +53,15 @@ export default {
       //是否发布
       isPublish: true,
       //上传地址
-      uploadDataUrl: ''
+      uploadDataUrl: '',
+      //清空markdown内容
+      clearMd: false
     };
   },
   methods: {
     //获取内容
     getContent(val) {
       this.content = val;
-      // console.log(val);
     },
     //选择文章标签
     chooseTaglist(id) {
@@ -88,8 +89,14 @@ export default {
       this.title = '';
       this.content = '';
       this.coverImg = '';
+      this.isPublish = true;
       this.tags = [];
       this.category = [];
+      this.$refs.fileBox.fileList = [];
+      this.clearMd = true;
+      setTimeout(() => {
+        this.clearMd = false;
+      }, 200);
     },
     //验证文章表单填写是否完整
     testArticle() {
@@ -124,7 +131,12 @@ export default {
         isPublish: this.isPublish
       };
       this.$store.dispatch('article/newArticle', reqData).then(res => {
-        console.log(res);
+        if (res.data.state == 0) {
+          this.$Message.success(res.data.message);
+          this.clearData();
+        } else {
+          this.$Message.warning(res.data.message);
+        }
       });
     }
   },

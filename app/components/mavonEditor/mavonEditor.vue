@@ -42,11 +42,18 @@ export default {
       }
     };
   },
-  props: {
-    content: String
+  props: ['status'],
+  //清空markdown
+  watch: {
+    status(v) {
+      if (v) {
+        this.value = '';
+      }
+    }
   },
   methods: {
     saveContent(val) {
+      console.log(val);
       this.$emit('save-content', marked(val));
     },
     uploadImg(pos, file) {

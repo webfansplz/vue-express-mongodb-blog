@@ -1,10 +1,10 @@
 <template>
   <div id="cateGory">
   <Tag v-for="(item,i) in cateGoryList" :key="i"  v-if="cateGoryList.length>0"  type="dot" closable :color="randomColor()" @on-close="closeTag(item)">{{ item.name }}</Tag>
-      <Tag  v-if="cateGoryList.length==0"  color="blue">暂无标签</Tag>
-      <i-button icon="ios-plus-empty" type="dashed" size="small" @click="showTxt">添加标签</i-button>   
-      <Modal v-model="txtStatus" title="新增标签" @on-ok="addCategory"  @on-cancel="cancel">
-         <i-input size="large" placeholder="请输入标签名" v-model="cateGoryName" autofocus :maxlength=15></i-input>  
+      <Tag  v-if="cateGoryList.length==0"  color="blue">暂无分类</Tag>
+      <i-button icon="ios-plus-empty" type="dashed" size="small" @click="showTxt">添加分类</i-button>   
+      <Modal v-model="txtStatus" title="新增分类" @on-ok="addCategory"  @on-cancel="cancel">
+         <i-input size="large" placeholder="请输入分类名" v-model="cateGoryName" autofocus :maxlength=15></i-input>  
       </Modal> 
   </div>
 </template>
@@ -13,14 +13,14 @@ export default {
   name: 'cateGory',
   data() {
     return {
-      //标签编辑框
+      //分类编辑框
       txtStatus: false,
-      //标签名
+      //分类名
       cateGoryName: ''
     };
   },
   methods: {
-    //获取标签列表
+    //获取分类列表
     getCateGoryList() {
       this.$store.dispatch('article/getCategory');
     },
@@ -28,7 +28,7 @@ export default {
     randomColor() {
       return `#${Math.floor(Math.random() * 256).toString(10)}`;
     },
-    //关闭标签
+    //关闭分类
     closeTag(item) {
       this.$store
         .dispatch('article/delCategory', {
@@ -44,14 +44,14 @@ export default {
         });
       console.log(item);
     },
-    //打开新增标签框
+    //打开新增分类框
     showTxt() {
       this.txtStatus = true;
     },
-    //添加标签
+    //添加分类
     addCategory() {
       if (!this.cateGoryName) {
-        this.$Message.warning('标签名称不能为空!!!');
+        this.$Message.warning('分类名称不能为空!!!');
         return false;
       }
       this.$store
@@ -75,7 +75,7 @@ export default {
     }
   },
   computed: {
-    //标签列表
+    //分类列表
     cateGoryList() {
       return this.$store.state.article.cateGoryList;
     }
