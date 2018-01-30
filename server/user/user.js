@@ -1,7 +1,6 @@
 import User from '../../models/user';
 import { md5, responseMsg, createToken } from '../../utils/utils';
 import { apiHost, apiPort } from '../../config/apiConfig';
-import formidable from 'formidable';
 import fs from 'fs';
 import path from 'path';
 module.exports = {
