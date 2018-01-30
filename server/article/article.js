@@ -16,5 +16,16 @@ module.exports = {
     } catch (err) {
       responseMsg();
     }
+  },
+  //获取文章
+  getArticles: async (req, res) => {
+    try {
+      let articles = await Article.find()
+        .populate('tags category')
+        .exec();
+      responseMsg(res, 200, 0, articles, '获取成功!');
+    } catch (err) {
+      responseMsg();
+    }
   }
 };

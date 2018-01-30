@@ -4,7 +4,9 @@ export default {
     //标签列表
     tagList: [],
     //分类列表
-    cateGoryList: []
+    cateGoryList: [],
+    //文章列表
+    articleList: []
   },
   mutations: {
     //设置标签列表
@@ -14,6 +16,10 @@ export default {
     //设置分类列表
     ['artilce/setCategory'](state, payload) {
       state.cateGoryList = payload;
+    },
+    //设置文章列表
+    ['article/setArticles'](state, payload) {
+      state.articleList = payload;
     }
   },
   actions: {
@@ -55,9 +61,15 @@ export default {
       return res;
     },
     //新增文章
-    async ['article/newArticle'](content, payload) {
+    async ['article/newArticle'](context, payload) {
       let res = await fetch('put', 'article/newArticle', payload);
       return res;
+    },
+    //获取文章
+    async ['article/getArticles']({ commit }, payload) {
+      let res = await fetch('get', 'article/getArticles', payload);
+      console.log(res.data.data);
+      commit('article/setArticles', res.data.data);
     }
   },
   getters: {}
