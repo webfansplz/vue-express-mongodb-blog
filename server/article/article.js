@@ -27,5 +27,20 @@ module.exports = {
     } catch (err) {
       responseMsg();
     }
+  },
+  //删除文章
+  removeArticle: async (req, res) => {
+    try {
+      let { id } = req.params;
+      await Article.remove({ _id: id });
+      let article = await Article.findOne({ _id: id });
+      if (!article) {
+        responseMsg(res, 200, 0, '', '删除成功!');
+      } else {
+        responseMsg(res, 200, 3, '', '删除失败!');
+      }
+    } catch (err) {
+      responseMsg();
+    }
   }
 };

@@ -1,6 +1,10 @@
 import express from 'express';
 import checkToken from './middle/checkToken';
-import { newArticle, getArticles } from '../server/article/article';
+import {
+  newArticle,
+  getArticles,
+  removeArticle
+} from '../server/article/article';
 
 const router = express.Router();
 
@@ -8,4 +12,6 @@ const router = express.Router();
 router.put('/newArticle', checkToken, newArticle);
 //获取文章
 router.get('/getArticles', getArticles);
+//删除文章
+router.delete('/removeArticle/:id', checkToken, removeArticle);
 module.exports = router;

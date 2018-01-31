@@ -39,7 +39,7 @@
             <div>
               <span><Button type="primary">详情</Button></span>
               <span><Button type="success">修改</Button></span> 
-              <span><Button type="warning">删除</Button></span> 
+              <span><Button type="warning" @click="delArticle(item)">删除</Button></span> 
             </div>              
           </div>          
         </li>
@@ -55,17 +55,40 @@ export default {
     return {};
   },
   created() {
+    //获取文章列表
     this.$store.dispatch('article/getArticles');
   },
   computed: {
+    //文章列表
     articleList() {
       return this.$store.state.article.articleList;
     }
   },
+  methods: {
+    //删除文章
+    delArticle(item) {
+      let _this = this;
+      this.$Modal.confirm({
+        content: `你确定要删除${item.title}吗?`,
+        onOk() {
+          _this.$store.dispatch('article/removeArticle', item._id).then(res => {
+            if (res.data.state == 0) {
+              this.$Message.success(res.data.message);
+              _this.$store.dispatch('article/getArticles');
+            } else {
+              this.$Message.error(res.data.message);
+            }
+          });
+        }
+      });
+    }
+  },
   filters: {
+    //是否发布
     isPublish(v) {
       return v ? '已发布' : '未发布';
     },
+    //格式化日期
     formatDate(v) {
       return moment(v).format('YYYY-MM-DD HH:mm:ss');
     }

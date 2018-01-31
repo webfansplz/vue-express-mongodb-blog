@@ -70,6 +70,11 @@ export default {
       let res = await fetch('get', 'article/getArticles', payload);
       console.log(res.data.data);
       commit('article/setArticles', res.data.data);
+    },
+    //删除文章
+    async ['article/removeArticle'](context, payload) {
+      let res = await fetch('delete', `article/removeArticle/${payload}`);
+      return res;
     }
   },
   getters: {}
