@@ -6,7 +6,11 @@ export default {
     //分类列表
     cateGoryList: [],
     //文章列表
-    articleList: []
+    articleList: [],
+    //是否显示文章详情
+    detailState: false,
+    //文章详情
+    articleDetails: {}
   },
   mutations: {
     //设置标签列表
@@ -20,6 +24,16 @@ export default {
     //设置文章列表
     ['article/setArticles'](state, payload) {
       state.articleList = payload;
+    },
+    //设置是否显示文章详情
+    ['article/setDetailState'](state, payload) {
+      state.detailState = payload;
+    },
+    //显示文章详情
+    ['article/setArticleDetails'](state, payload) {
+      state.detailState = true;
+      state.articleDetails = payload;
+      console.log(state.articleDetails);
     }
   },
   actions: {
