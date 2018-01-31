@@ -1,7 +1,7 @@
 <template>
 <div id="articleDetails">
   <div class="back" @click="goBack">
-    <Icon type="ios-undo"></Icon>
+    <Icon type="android-cancel"></Icon>
   </div>
   <h1 class="title">{{articleDetails.title}}</h1>
   <div class="create_time">{{articleDetails.create_at|formatDate}}</div>
@@ -38,10 +38,10 @@ export default {
   position: relative;
   text-align: center;
   .back {
-    .mx_postl(0,0);
+    .mx_postr(0,0);
     cursor: pointer;
     i {
-      .mx_fc(66px,#333);
+      .mx_fc(33px,#333);
     }
   }
   .title {
