@@ -50,7 +50,7 @@ export default {
     }
   },
   created() {
-    this.value = marked.lexer(this.articleDetails.content);
+    this.value = this.articleDetails.markCxt;
   },
   //清空markdown
   watch: {
@@ -62,7 +62,10 @@ export default {
   },
   methods: {
     saveContent(val) {
-      this.$emit('save-content', marked(val));
+      this.$emit('save-content', {
+        content: marked(val),
+        markCxt: this.value
+      });
     },
     uploadImg(pos, file) {
       this.$store

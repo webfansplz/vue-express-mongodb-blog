@@ -55,13 +55,16 @@ export default {
       //上传地址
       uploadDataUrl: '',
       //清空markdown内容
-      clearMd: false
+      clearMd: false,
+      //markdown内容
+      markCxt: ''
     };
   },
   methods: {
     //获取内容
-    getContent(val) {
-      this.content = val;
+    getContent({ content, markCxt }) {
+      this.content = content;
+      this.markCxt = markCxt;
     },
     //选择文章标签
     chooseTaglist(id) {
@@ -89,6 +92,7 @@ export default {
       this.title = '';
       this.content = '';
       this.coverImg = '';
+      this.markCxt = '';
       this.isPublish = true;
       this.tags = [];
       this.category = [];
@@ -128,7 +132,8 @@ export default {
         coverImg: this.coverImg,
         tags: this.tags,
         category: this.category,
-        isPublish: this.isPublish
+        isPublish: this.isPublish,
+        markCxt: this.markCxt
       };
       this.$store.dispatch('article/newArticle', reqData).then(res => {
         if (res.data.state == 0) {
@@ -141,8 +146,10 @@ export default {
     },
     //抽取id
     getListId(list) {
-      return list.reduce((a, b) => Object.assign({}, { id: [a._id, b._id] }))
-        .id;
+      console.log(list);
+      return list.reduce((a, b) => Object.assign({}, { id: [a._id, b._id] }), {
+        id: ''
+      }).id;
     },
     //是否修改
     isAlter() {
@@ -160,6 +167,7 @@ export default {
         this.coverImg = coverImg;
         this.isPublish = isPublish;
         this.tags = this.getListId(tags);
+        console.log(this.tags);
         this.category = this.getListId(category);
         this.content = content;
       }

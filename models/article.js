@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 const Articles = new mongoose.Schema({
   title: String, //文章标题
   content: String, //文章内容
+  markCxt: String, //markdown内容
   time: String, //发表时间
   coverImg: String, //封面图片
   author: String, //作者
