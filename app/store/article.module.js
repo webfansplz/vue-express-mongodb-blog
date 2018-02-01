@@ -31,9 +31,7 @@ export default {
     },
     //显示文章详情
     ['article/setArticleDetails'](state, payload) {
-      state.detailState = true;
       state.articleDetails = payload;
-      console.log(state.articleDetails);
     }
   },
   actions: {

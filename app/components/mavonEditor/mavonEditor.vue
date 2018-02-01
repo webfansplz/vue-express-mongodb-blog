@@ -1,6 +1,6 @@
 <template>
   <div id="mavonEditors">
-    <mavon-editor v-model="value" :toolbars="toolbarsObj" ref="editor" @save="saveContent" @change="saveContent" @imgAdd="uploadImg" @imgDel="delImg"/>
+    <mavon-editor v-model="value" :toolbars="toolbarsObj"  ref="editor" @save="saveContent" @change="saveContent" @imgAdd="uploadImg" @imgDel="delImg"/>
   </div>
 </template>
 <script>
@@ -43,6 +43,15 @@ export default {
     };
   },
   props: ['status'],
+  computed: {
+    //文章详情
+    articleDetails() {
+      return this.$store.state.article.articleDetails;
+    }
+  },
+  created() {
+    this.value = marked.lexer(this.articleDetails.content);
+  },
   //清空markdown
   watch: {
     status(v) {
@@ -53,7 +62,6 @@ export default {
   },
   methods: {
     saveContent(val) {
-      console.log(val);
       this.$emit('save-content', marked(val));
     },
     uploadImg(pos, file) {

@@ -39,8 +39,8 @@
             </div>
             <div class="btn_box">
               <div>
-                <span><Button type="primary" @click="showDetails(item)">详情</Button></span>
-                <span><Button type="success">修改</Button></span> 
+                <!-- <span><Button type="primary" @click="showDetails(item)">详情</Button></span> -->
+                <span><Button type="success" @click="alterDetails(item)">修改</Button></span> 
                 <span><Button type="warning" @click="delArticle(item)">删除</Button></span> 
               </div>              
             </div>          
@@ -51,7 +51,6 @@
   </div>
 </template>
 <script>
-
 import Details from './articleDetails';
 export default {
   name: 'articlelist',
@@ -80,7 +79,7 @@ export default {
     delArticle(item) {
       let _this = this;
       this.$Modal.confirm({
-        content: `你确定要删除${item.title}吗?`,
+        content: `确定要删除${item.title}吗?`,
         onOk() {
           _this.$store.dispatch('article/removeArticle', item._id).then(res => {
             if (res.data.state == 0) {
@@ -93,9 +92,10 @@ export default {
         }
       });
     },
-    //显示文章详情
-    showDetails(item) {
+    //修改文章
+    alterDetails(item) {
       this.$store.commit('article/setArticleDetails', item);
+      this.$router.push('/newArticle');
     }
   },
   filters: {

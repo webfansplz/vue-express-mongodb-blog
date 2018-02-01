@@ -138,6 +138,31 @@ export default {
           this.$Message.warning(res.data.message);
         }
       });
+    },
+    //抽取id
+    getListId(list) {
+      return list.reduce((a, b) => Object.assign({}, { id: [a._id, b._id] }))
+        .id;
+    },
+    //是否修改
+    isAlter() {
+      //修改
+      if (JSON.stringify(this.articleDetails) != '{}') {
+        let {
+          title,
+          coverImg,
+          content,
+          category,
+          isPublish,
+          tags
+        } = this.articleDetails;
+        this.title = title;
+        this.coverImg = coverImg;
+        this.isPublish = isPublish;
+        this.tags = this.getListId(tags);
+        this.category = this.getListId(category);
+        this.content = content;
+      }
     }
   },
   components: {
@@ -146,7 +171,8 @@ export default {
   computed: {
     ...mapState({
       tagList: state => state.article.tagList,
-      cateGoryList: state => state.article.cateGoryList
+      cateGoryList: state => state.article.cateGoryList,
+      articleDetails: state => state.article.articleDetails
     }),
     token() {
       return window.localStorage.getItem('token');
@@ -158,11 +184,14 @@ export default {
       ? `${config.apiHost}:${config.apiPort}`
       : `${config.apiHost}`;
     this.uploadDataUrl = `${url}/admin/uploadData`;
-
     //获取文章标签
     this.$store.dispatch('article/getTags');
     //获取文章分类
     this.$store.dispatch('article/getCategory');
+    this.isAlter();
+  },
+  beforeDestroy() {
+    this.$store.commit('article/setArticleDetails', {});
   }
 };
 </script>
