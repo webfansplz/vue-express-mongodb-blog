@@ -30,18 +30,14 @@ export default {
     },
     //关闭标签
     closeTag(item) {
-      this.$store
-        .dispatch('article/delTags', {
-          id: item._id
-        })
-        .then(res => {
-          if (res.data.state == 0) {
-            this.$Message.success(res.data.message);
-            this.getTagList();
-          } else {
-            this.$Messgae.error(res.data.message);
-          }
-        });
+      this.$store.dispatch('article/delTags', item._id).then(res => {
+        if (res.data.state == 0) {
+          this.$Message.success(res.data.message);
+          this.getTagList();
+        } else {
+          this.$Messgae.error(res.data.message);
+        }
+      });
       console.log(item);
     },
     //打开新增标签框

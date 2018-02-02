@@ -30,18 +30,14 @@ export default {
     },
     //关闭分类
     closeTag(item) {
-      this.$store
-        .dispatch('article/delCategory', {
-          id: item._id
-        })
-        .then(res => {
-          if (res.data.state == 0) {
-            this.$Message.success(res.data.message);
-            this.getCateGoryList();
-          } else {
-            this.$Messgae.error(res.data.message);
-          }
-        });
+      this.$store.dispatch('article/delCategory', item._id).then(res => {
+        if (res.data.state == 0) {
+          this.$Message.success(res.data.message);
+          this.getCateGoryList();
+        } else {
+          this.$Messgae.error(res.data.message);
+        }
+      });
       console.log(item);
     },
     //打开新增分类框

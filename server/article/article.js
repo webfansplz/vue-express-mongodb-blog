@@ -9,7 +9,6 @@ module.exports = {
       if (isExist) {
         responseMsg(res, 200, 3, '', '已存在相同的文章名称!');
       } else {
-        console.log(req.body);
         let article = await new Article(obj).save();
         responseMsg(res, 200, 0, article, '添加成功!');
       }
@@ -40,16 +39,10 @@ module.exports = {
     }
   },
   //删除文章
-  removeArticle: async (req, res) => {
+  removeArticle: async ({ params: { id } }, res) => {
     try {
-      let { id } = req.params;
-      await Article.remove({ _id: id });
-      let article = await Article.findOne({ _id: id });
-      if (!article) {
-        responseMsg(res, 200, 0, '', '删除成功!');
-      } else {
-        responseMsg(res, 200, 3, '', '删除失败!');
-      }
+      await Article.findByIdAndRemove(id);
+      responseMsg(res, 200, 0, '', '删除成功!');
     } catch (err) {
       responseMsg(res);
     }

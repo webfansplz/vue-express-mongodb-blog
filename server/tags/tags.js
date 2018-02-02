@@ -18,7 +18,7 @@ module.exports = {
       ]);
       responseMsg(res, 200, 0, tagList, '查询成功!');
     } catch (err) {
-      responseMsg();
+      responseMsg(res);
     }
   },
   addTags: async (req, res) => {
@@ -34,21 +34,15 @@ module.exports = {
         responseMsg(res, 200, 0, tag, '添加成功!');
       }
     } catch (err) {
-      responseMsg();
+      responseMsg(res);
     }
   },
-  delTags: async (req, res) => {
+  delTags: async ({ params: { id } }, res) => {
     try {
-      let { id } = req.body;
-      await Tags.remove({ _id: id });
-      let tags = await Tags.findOne({ _id: id });
-      if (!tags) {
-        responseMsg(res, 200, 0, '', '删除成功!');
-      } else {
-        responseMsg(res, 200, 3, '', '删除失败!');
-      }
+      await Tags.findByIdAndRemove(id);
+      responseMsg(res, 200, 0, '', '删除成功!');
     } catch (err) {
-      responseMsg();
+      responseMsg(res);
     }
   }
 };

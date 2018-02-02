@@ -18,7 +18,7 @@ module.exports = {
       ]);
       responseMsg(res, 200, 0, cateGoryList, '查询成功!');
     } catch (err) {
-      responseMsg();
+      responseMsg(res);
     }
   },
   addCategory: async (req, res) => {
@@ -34,21 +34,15 @@ module.exports = {
         responseMsg(res, 200, 0, tag, '添加成功!');
       }
     } catch (err) {
-      responseMsg();
+      responseMsg(res);
     }
   },
-  delCategory: async (req, res) => {
+  delCategory: async ({ params: { id } }, res) => {
     try {
-      let { id } = req.body;
-      await CateGory.remove({ _id: id });
-      let category = await CateGory.findOne({ _id: id });
-      if (!category) {
-        responseMsg(res, 200, 0, '', '删除成功!');
-      } else {
-        responseMsg(res, 200, 3, '', '删除失败!');
-      }
+      await CateGory.findByIdAndRemove(id);
+      responseMsg(res, 200, 0, '', '删除成功!');
     } catch (err) {
-      responseMsg();
+      responseMsg(res);
     }
   }
 };

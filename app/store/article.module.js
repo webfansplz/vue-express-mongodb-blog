@@ -43,7 +43,7 @@ export default {
     },
     //删除标签
     async ['article/delTags'](context, payload) {
-      let res = await fetch('delete', 'tags', payload);
+      let res = await fetch('delete', `tags/${payload}`);
       return res;
     },
     //新增标签
@@ -59,7 +59,7 @@ export default {
     },
     //删除分类
     async ['article/delCategory'](context, payload) {
-      let res = await fetch('delete', 'category', payload);
+      let res = await fetch('delete', `category/${payload}`);
       return res;
     },
     //新增分类
