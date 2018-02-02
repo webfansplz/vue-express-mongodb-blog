@@ -135,7 +135,14 @@ export default {
         isPublish: this.isPublish,
         markCxt: this.markCxt
       };
-      this.$store.dispatch('article/newArticle', reqData).then(res => {
+      let url;
+      if (JSON.stringify(this.articleDetails) != '{}') {
+        url = 'article/updateArticle';
+        reqData._id = this.articleDetails._id;
+      } else {
+        url = 'article/newArticle';
+      }
+      this.$store.dispatch(url, reqData).then(res => {
         if (res.data.state == 0) {
           this.$Message.success(res.data.message);
           this.clearData();
@@ -146,10 +153,11 @@ export default {
     },
     //抽取id
     getListId(list) {
-      console.log(list);
-      return list.reduce((a, b) => Object.assign({}, { id: [a._id, b._id] }), {
-        id: ''
-      }).id;
+      const box = [];
+      list.map(v => {
+        box.push(v._id);
+      });
+      return box;
     },
     //是否修改
     isAlter() {
@@ -167,7 +175,6 @@ export default {
         this.coverImg = coverImg;
         this.isPublish = isPublish;
         this.tags = this.getListId(tags);
-        console.log(this.tags);
         this.category = this.getListId(category);
         this.content = content;
       }
@@ -180,11 +187,9 @@ export default {
     ...mapState({
       tagList: state => state.article.tagList,
       cateGoryList: state => state.article.cateGoryList,
-      articleDetails: state => state.article.articleDetails
-    }),
-    token() {
-      return window.localStorage.getItem('token');
-    }
+      articleDetails: state => state.article.articleDetails,
+      token: () => window.localStorage.getItem('token')
+    })
   },
   created() {
     //设置文件上传地址

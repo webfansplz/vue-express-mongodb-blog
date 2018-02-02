@@ -74,14 +74,18 @@ export default {
     },
     //新增文章
     async ['article/newArticle'](context, payload) {
-      let res = await fetch('put', 'article/newArticle', payload);
+      let res = await fetch('post', 'article/newArticle', payload);
       return res;
     },
     //获取文章
     async ['article/getArticles']({ commit }, payload) {
       let res = await fetch('get', 'article/getArticles', payload);
-      console.log(res.data.data);
       commit('article/setArticles', res.data.data);
+    },
+    //修改文章
+    async ['article/updateArticle'](context, payload) {
+      let res = await fetch('put', 'article/updateArticle', payload);
+      return res;
     },
     //删除文章
     async ['article/removeArticle'](context, payload) {

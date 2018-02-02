@@ -64,7 +64,7 @@ export default {
     saveContent(val) {
       this.$emit('save-content', {
         content: marked(val),
-        markCxt: this.value
+        markCxt: val
       });
     },
     uploadImg(pos, file) {

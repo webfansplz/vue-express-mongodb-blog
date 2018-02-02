@@ -14,7 +14,7 @@ module.exports = {
         responseMsg(res, 200, 0, article, '添加成功!');
       }
     } catch (err) {
-      responseMsg();
+      responseMsg(res);
     }
   },
   //获取文章
@@ -25,7 +25,18 @@ module.exports = {
         .exec();
       responseMsg(res, 200, 0, articles, '获取成功!');
     } catch (err) {
-      responseMsg();
+      responseMsg(res);
+    }
+  },
+  //修改文章
+  updateArticle: async ({ body }, res) => {
+    try {
+      let id = body._id;
+      delete body._id;
+      await Article.update({ _id: id }, body);
+      responseMsg(res, 200, 0, '', '修改成功!');
+    } catch (err) {
+      responseMsg(res);
     }
   },
   //删除文章
@@ -40,7 +51,7 @@ module.exports = {
         responseMsg(res, 200, 3, '', '删除失败!');
       }
     } catch (err) {
-      responseMsg();
+      responseMsg(res);
     }
   }
 };
