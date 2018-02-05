@@ -1,6 +1,7 @@
 <template>
 <div id="userMenu">
     <nav class="userMenu">
+      <img src="../../../assets/img/role.png" class="logo">
       <ul>
         <li v-for="(item,v) in menuList" :key="v" :class="{'active':v==tabIndex}" @click="toggleMenu(item,v)">
           <i :class="`ic ic-${item.icon}`"></i>
