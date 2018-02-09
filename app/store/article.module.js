@@ -81,6 +81,11 @@ export default {
     async ['article/getArticles']({ commit }, payload) {
       let res = await fetch('get', 'article/getArticles', payload);
       commit('article/setArticles', res.data.data);
+      let total = JSON.parse(JSON.stringify(res.data.data));
+      delete total.docs;
+      return {
+        ...total
+      };
     },
     //修改文章
     async ['article/updateArticle'](context, payload) {

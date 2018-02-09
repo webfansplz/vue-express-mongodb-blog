@@ -12,15 +12,15 @@
               <span>分类</span>
               <span>标签</span>
               <span>时间</span>
-              <span>发布</span>            
+              <span>发布</span>
             </div>
-            <div class="btn_box c">操作</div>   
+            <div class="btn_box c">操作</div>
           </li>
-          <li v-for="(item,i) in articleList" :key="i">
+          <li v-for="(item,i) in articleList.docs" :key="i">
             <div class="img_box c">
               <img :src="item.coverImg" :alt="item.title">
               <div>
-              {{item.title}}
+                {{item.title}}
               </div>
             </div>
             <div class="contxt c">
@@ -40,12 +40,19 @@
             <div class="btn_box">
               <div>
                 <!-- <span><Button type="primary" @click="showDetails(item)">详情</Button></span> -->
-                <span><Button type="success" @click="alterDetails(item)">修改</Button></span> 
-                <span><Button type="warning" @click="delArticle(item)">删除</Button></span> 
-              </div>              
-            </div>          
+                <span>
+                  <Button type="success" @click="alterDetails(item)">修改</Button>
+                </span>
+                <span>
+                  <Button type="warning" @click="delArticle(item)">删除</Button>
+                </span>
+              </div>
+            </div>
           </li>
         </ul>
+        <div>
+          <Page :total="page_conf.total" :current="page_conf.page" :page-size="page_conf.limit"></Page>
+        </div>
       </div>
     </transition>
   </div>
@@ -55,14 +62,19 @@ import Details from './articleDetails';
 export default {
   name: 'articlelist',
   data() {
-    return {};
+    return {
+      page_conf: {
+        page: 1,
+        total: 10,
+        limit: 10
+      }
+    };
   },
   components: {
     Details
   },
   created() {
-    //获取文章列表
-    this.$store.dispatch('article/getArticles');
+    this.getArticles();
   },
   computed: {
     //文章列表
@@ -75,6 +87,17 @@ export default {
     }
   },
   methods: {
+    //获取文章列表
+    getArticles() {
+      this.$store
+        .dispatch('article/getArticles', {
+          page: 1,
+          page_size: 3
+        })
+        .then(res => {
+          this.page_conf = res;
+        });
+    },
     //删除文章
     delArticle(item) {
       let _this = this;

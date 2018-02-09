@@ -19,9 +19,13 @@ module.exports = {
   //获取文章
   getArticles: async (req, res) => {
     try {
-      let articles = await Article.find()
-        .populate('tags category')
-        .exec();
+      let { page_size, page } = req.query;
+      const options = {
+        populate: 'tags category',
+        page: Number(page || 1),
+        limit: Number(page_size || 5)
+      };
+      let articles = await Article.paginate({}, options);
       responseMsg(res, 200, 0, articles, '获取成功!');
     } catch (err) {
       responseMsg(res);

@@ -61,7 +61,7 @@ module.exports = {
       //图片已存在,直接读取覆盖
       if (data) {
         if (err) {
-          responseMsg();
+          responseMsg(res);
         }
         fs.readFile(imgPath, (err, result) => {
           responseMsg(res, 200, 0, { imgUrl: `${url}/${name}` }, 'ok');
@@ -69,7 +69,7 @@ module.exports = {
       } else {
         fs.writeFile(imgPath, img, err => {
           if (err) {
-            responseMsg();
+            responseMsg(res);
           }
           responseMsg(res, 200, 0, { imgUrl: `${url}/${name}` }, 'ok');
         });
@@ -87,7 +87,7 @@ module.exports = {
       //图片已存在,直接读取覆盖
       if (data) {
         if (err) {
-          responseMsg();
+          responseMsg(res);
         }
         fs.readFile(imgPath, (err, result) => {
           responseMsg(res, 200, 0, { imgUrl: `${url}/${f.name}` }, 'ok');
@@ -95,7 +95,7 @@ module.exports = {
       } else {
         fs.writeFile(imgPath, imgData, err => {
           if (err) {
-            responseMsg();
+            responseMsg(res);
           }
           responseMsg(res, 200, 0, { imgUrl: `${url}/${f.name}` }, 'ok');
         });

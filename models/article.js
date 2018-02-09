@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-
+import mongoosePaginate from 'mongoose-paginate';
 const Articles = new mongoose.Schema({
   title: String, //文章标题
   content: String, //文章内容
@@ -18,6 +18,8 @@ const Articles = new mongoose.Schema({
   update_at: { type: Date, default: Date.now }
 });
 
+//翻页
+Articles.plugin(mongoosePaginate);
 Articles.pre('findOneAndUpdate', next => {
   this.findOneAndUpdate({}, { update_at: Date.now() });
   next();
