@@ -2,7 +2,7 @@
   <div id="articlelist">
     <transition enter-active-class="animated bounceInLeft" leave-active-class="animated bounceOutRight" mode="out-in">
       <!-- <Details v-if="detailState"></Details> -->
-      <div class="list" v-if="articleList.docs.length>0">
+      <div class="list" v-if="articleList&&articleList.length>0">
         <ul>
           <li class="title-box">
             <div class="img_box c">
@@ -16,7 +16,7 @@
             </div>
             <div class="btn_box c">操作</div>
           </li>
-          <li v-for="(item,i) in articleList.docs" :key="i">
+          <li v-for="(item,i) in articleList" :key="i">
             <div class="img_box c">
               <img :src="item.coverImg" :alt="item.title">
               <div>
@@ -54,7 +54,7 @@
           <Page :total="page_conf.total" :current="page_conf.page" :page-size="page_conf.limit" @on-change="changePage"></Page>
         </div>
       </div>
-      <div v-else class="no-article">
+      <div class="no-article" v-else>
         暂无文章,
         <router-link to="/newArticle" tag="a">去添加!</router-link>
       </div>
@@ -83,7 +83,7 @@ export default {
   computed: {
     //文章列表
     articleList() {
-      return this.$store.state.article.articleList;
+      return this.$store.state.article.articleList.docs;
     },
     //是否显示文章详情
     detailState() {
@@ -113,6 +113,7 @@ export default {
             if (res.data.state == 0) {
               this.$Message.success(res.data.message);
               _this.$store.dispatch('article/getArticles');
+              _this.page_conf.page = 1;
               _this.getArticles();
             } else {
               this.$Message.error(res.data.message);

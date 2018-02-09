@@ -6,7 +6,11 @@ export default {
     //分类列表
     cateGoryList: [],
     //文章列表
-    articleList: [],
+    articleList: [
+      {
+        docs: []
+      }
+    ],
     //是否显示文章详情
     detailState: false,
     //文章详情

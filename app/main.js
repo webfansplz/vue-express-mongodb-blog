@@ -14,7 +14,7 @@ Vue.filter('formatDate', v => moment(v).format('YYYY-MM-DD HH:mm:ss'));
 
 Vue.use(mavonEditor);
 Vue.prototype.utils = utils;
-new Vue({
+const app = new Vue({
   el: '#app',
   router,
   store,
