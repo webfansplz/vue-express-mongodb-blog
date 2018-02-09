@@ -1,8 +1,8 @@
 <template>
   <div id="articlelist">
     <transition enter-active-class="animated bounceInLeft" leave-active-class="animated bounceOutRight" mode="out-in">
-      <Details v-if="detailState"></Details>
-      <div class="list" v-else>
+      <!-- <Details v-if="detailState"></Details> -->
+      <div class="list" v-if="articleList.docs.length>0">
         <ul>
           <li class="title-box">
             <div class="img_box c">
@@ -50,9 +50,13 @@
             </div>
           </li>
         </ul>
-        <div>
-          <Page :total="page_conf.total" :current="page_conf.page" :page-size="page_conf.limit"></Page>
+        <div class="center" v-if="page_conf.total>page_conf.limit">
+          <Page :total="page_conf.total" :current="page_conf.page" :page-size="page_conf.limit" @on-change="changePage"></Page>
         </div>
+      </div>
+      <div v-else class="no-article">
+        暂无文章,
+        <router-link to="/newArticle" tag="a">去添加!</router-link>
       </div>
     </transition>
   </div>
@@ -66,7 +70,7 @@ export default {
       page_conf: {
         page: 1,
         total: 10,
-        limit: 10
+        limit: 3
       }
     };
   },
@@ -89,10 +93,11 @@ export default {
   methods: {
     //获取文章列表
     getArticles() {
+      let { page, limit } = this.page_conf;
       this.$store
         .dispatch('article/getArticles', {
-          page: 1,
-          page_size: 3
+          page: page,
+          page_size: limit
         })
         .then(res => {
           this.page_conf = res;
@@ -108,6 +113,7 @@ export default {
             if (res.data.state == 0) {
               this.$Message.success(res.data.message);
               _this.$store.dispatch('article/getArticles');
+              _this.getArticles();
             } else {
               this.$Message.error(res.data.message);
             }
@@ -119,6 +125,11 @@ export default {
     alterDetails(item) {
       this.$store.commit('article/setArticleDetails', item);
       this.$router.push('/newArticle');
+    },
+    //改变页数
+    changePage(num) {
+      this.page_conf.page = num;
+      this.getArticles();
     }
   },
   filters: {
