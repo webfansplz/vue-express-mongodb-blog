@@ -8,6 +8,7 @@ Vue.use(Router);
 
 //webpack按需加载组件
 
+//404
 const NotFound = r =>
   require.ensure(
     [],
