@@ -7,6 +7,13 @@ Vue.use(iView);
 Vue.use(Router);
 
 //webpack按需加载组件
+
+const NotFound = r =>
+  require.ensure(
+    [],
+    () => r(require('../page/notFound/notFound')),
+    ' notFound'
+  );
 const Home = r =>
   require.ensure([], () => r(require('../page/home/home')), ' home');
 //后台管理
@@ -84,6 +91,11 @@ const router = new Router({
       path: '/login',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/*',
+      name: 'NotFound',
+      component: NotFound
     }
   ]
 });
