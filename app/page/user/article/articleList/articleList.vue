@@ -1,7 +1,6 @@
 <template>
   <div id="articlelist">
     <transition enter-active-class="animated bounceInLeft" leave-active-class="animated bounceOutRight" mode="out-in">
-      <!-- <Details v-if="detailState"></Details> -->
       <div class="list" v-if="articleList&&articleList.length>0">
         <ul>
           <li class="title-box">
@@ -39,7 +38,6 @@
             </div>
             <div class="btn_box">
               <div>
-                <!-- <span><Button type="primary" @click="showDetails(item)">详情</Button></span> -->
                 <span>
                   <Button type="success" @click="alterDetails(item)">修改</Button>
                 </span>
@@ -62,7 +60,6 @@
   </div>
 </template>
 <script>
-import Details from './articleDetails';
 export default {
   name: 'articlelist',
   data() {
@@ -74,9 +71,6 @@ export default {
       }
     };
   },
-  components: {
-    Details
-  },
   created() {
     this.getArticles();
   },
@@ -84,10 +78,6 @@ export default {
     //文章列表
     articleList() {
       return this.$store.state.article.articleList.docs;
-    },
-    //是否显示文章详情
-    detailState() {
-      return this.$store.state.article.detailState;
     }
   },
   methods: {

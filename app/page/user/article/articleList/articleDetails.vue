@@ -1,19 +1,19 @@
 <template>
-<div id="articleDetails">
-  <div class="back" @click="goBack">
-    <Icon type="android-cancel"></Icon>
+  <div id="articleDetails">
+    <div class="back" @click="goBack">
+      <Icon type="android-cancel"></Icon>
+    </div>
+    <h1 class="title">{{articleDetails.title}}</h1>
+    <div class="create_time">{{articleDetails.create_at|formatDate}}</div>
+    <div class="tagList">
+      <i-button v-for="(item,i) in articleDetails.tags" :key="i">{{item.name}}</i-button>
+    </div>
+    <div class="categoryList">
+      <i-button type="dashed" v-for="(item,i) in articleDetails.category" :key="i">{{item.name}}</i-button>
+    </div>
+    <img :src="articleDetails.coverImg" alt="文章封面">
+    <div v-html="articleDetails.content" class="contxt"></div>
   </div>
-  <h1 class="title">{{articleDetails.title}}</h1>
-  <div class="create_time">{{articleDetails.create_at|formatDate}}</div>
-  <div class="tagList">
-     <i-button v-for="(item,i) in articleDetails.tags" :key="i">{{item.name}}</i-button>
-  </div>
-  <div class="categoryList">
-    <i-button type="dashed" v-for="(item,i) in articleDetails.category" :key="i">{{item.name}}</i-button>
-  </div>
-  <img :src="articleDetails.coverImg" alt="文章封面">
-  <div v-html="articleDetails.content" class="contxt"></div>
-</div>
 </template>
 <script>
 export default {
@@ -36,7 +36,7 @@ export default {
 @import url('../../../../assets/style/mixin');
 #articleDetails {
   position: relative;
-  text-align: center;
+  // text-align: center;
   .back {
     .mx_postr(0,0);
     cursor: pointer;

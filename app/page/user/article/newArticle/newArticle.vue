@@ -1,34 +1,34 @@
 <template>
   <div id="newArticle">
-     <Form  :label-width="80">
-        <FormItem label="文章标题">
-            <Input v-model="title" placeholder="Enter title..."></Input>
-        </FormItem>
-        <FormItem label="文章标签" class="btn-box">
-            <i-button v-for="(item,i) in tagList" :key="i"  :class="{'current':tags.indexOf(item._id)>-1}" @click="chooseTaglist(item._id)">{{item.name}}</i-button>
-        </FormItem>
-        <FormItem label="文章分类"  class="btn-box">
-            <i-button v-for="(item,i) in cateGoryList" :key="i" :class="{'current':category.indexOf(item._id)>-1}" @click="chooseArticlelist(item._id)">{{item.name}}</i-button>   
-        </FormItem>
-        <FormItem label="文章封面">
-            <Upload :action="uploadDataUrl" ref="fileBox" :max-size=200 :headers="{'Authorization':token}" :format="['jpg','jpeg','png']" :on-success="sucUpload" :on-remove="rmCoverImg">
-              <Button type="ghost" icon="ios-cloud-upload-outline">上传图片</Button>
-            </Upload>
-        </FormItem>
-        <FormItem label="封面预览" v-if="coverImg">
-            <img :src="coverImg" alt="文章封面" class="coverImg">
-        </FormItem>
-        <FormItem label="文章内容">
-            <mavonEditor @save-content="getContent" :status="clearMd"></mavonEditor>
-        </FormItem>
-        <FormItem label="是否发布" class="btn-box">
-          <i-button :class="{'current':isPublish}" @click="isPublish=true">公开</i-button>
-          <i-button :class="{'current':!isPublish}"  @click="isPublish=false">不公开</i-button>
-        </FormItem>
-        <div class="bot-box">
-          <i-button type="info" @click="saveData">保存</i-button>
-          <i-button @click="clearData">重置</i-button>
-        </div>
+    <Form :label-width="80">
+      <FormItem label="文章标题">
+        <Input v-model="title" placeholder="Enter title..."></Input>
+      </FormItem>
+      <FormItem label="文章标签" class="btn-box">
+        <i-button v-for="(item,i) in tagList" :key="i" :class="{'current':tags.indexOf(item._id)>-1}" @click="chooseTaglist(item._id)">{{item.name}}</i-button>
+      </FormItem>
+      <FormItem label="文章分类" class="btn-box">
+        <i-button v-for="(item,i) in cateGoryList" :key="i" :class="{'current':category.indexOf(item._id)>-1}" @click="chooseArticlelist(item._id)">{{item.name}}</i-button>
+      </FormItem>
+      <FormItem label="文章封面">
+        <Upload :action="uploadDataUrl" ref="fileBox" :max-size=300 :headers="{'Authorization':token}" :format="['jpg','jpeg','png']" :on-success="sucUpload" :on-remove="rmCoverImg">
+          <Button type="ghost" icon="ios-cloud-upload-outline">上传图片</Button>
+        </Upload>
+      </FormItem>
+      <FormItem label="封面预览" v-if="coverImg">
+        <img :src="coverImg" alt="文章封面" class="coverImg">
+      </FormItem>
+      <FormItem label="文章内容">
+        <mavonEditor @save-content="getContent" :status="clearMd"></mavonEditor>
+      </FormItem>
+      <FormItem label="是否发布" class="btn-box">
+        <i-button :class="{'current':isPublish}" @click="isPublish=true">公开</i-button>
+        <i-button :class="{'current':!isPublish}" @click="isPublish=false">不公开</i-button>
+      </FormItem>
+      <div class="bot-box">
+        <i-button type="info" @click="saveData">保存</i-button>
+        <i-button @click="clearData">重置</i-button>
+      </div>
     </Form>
   </div>
 </template>

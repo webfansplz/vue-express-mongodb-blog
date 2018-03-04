@@ -17,7 +17,12 @@ app.all('*', (req, res, next) => {
   res.header('Content-Type', 'application/json;charset=utf-8');
   next();
 });
-app.use(bodyParser.json());
+
+app.use(
+  bodyParser.json({
+    limit: '1mb'
+  })
+);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', require('./app'));
 app.use('/admin', require('./admin'));

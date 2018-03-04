@@ -1,10 +1,9 @@
 <template>
   <div id="mavonEditors">
-    <mavon-editor v-model="value" :toolbars="toolbarsObj"  ref="editor" @save="saveContent" @change="saveContent" @imgAdd="uploadImg" @imgDel="delImg"/>
+    <mavon-editor v-model="value" :toolbars="toolbarsObj" ref="editor" @save="saveContent" @change="saveContent" @imgAdd="uploadImg" @imgDel="delImg" />
   </div>
 </template>
 <script>
-import marked from 'marked';
 export default {
   name: 'mavonEditors',
   data() {
@@ -61,9 +60,9 @@ export default {
     }
   },
   methods: {
-    saveContent(val) {
+    saveContent(val, html) {
       this.$emit('save-content', {
-        content: marked(val),
+        content: html,
         markCxt: val
       });
     },
