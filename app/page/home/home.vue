@@ -1,11 +1,29 @@
 <template>
-  <div id="home">home</div>
+  <div id="home">
+    <nav class="navbar">
+      <div class="container">
+
+      </div>
+    </nav>
+  </div>
 </template>
 <script>
 export default {
   name: 'home'
 };
 </script>
-<style>
-
+<style lang="less" scoped>
+@import url('../../assets/style/mixin');
+#home {
+  .navbar {
+    .mx_wh(100%,60px);
+    .mx_fixtl(0,0);
+    z-index: 666;
+    background-color: hsla(0, 0%, 100%, 0.6);
+    .container {
+      .mx_wh(75%,100%);
+      margin: 0 auto;
+    }
+  }
+}
 </style>
