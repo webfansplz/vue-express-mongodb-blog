@@ -39,7 +39,7 @@ module.exports = {
     publicPath: '/',
     devtoolType: 'cheap-module-eval-source-map',
     vueloaderConf: devVueLoaderConf,
-    host: 'localhost',
+    host: '192.168.10.153',
     port: '1234',
     proxyTable: {}
   },
