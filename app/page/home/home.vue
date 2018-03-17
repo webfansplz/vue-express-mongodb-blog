@@ -29,6 +29,8 @@ export default {
 @import url('../../assets/style/mixin');
 #home {
   .mx_wh(100%,100%);
+  .mx_reltl(0,0);
+  z-index: 1;
   padding-top: 60px;
   .navbar {
     .mx_wh(100%,60px);
@@ -48,16 +50,13 @@ export default {
   }
   & > .container {
     margin: 30px auto 0;
-    background-color: transparent;
-    .mx_wh(70%,100%);
+    .mx_wh(70%, calc(~'100% - 30px'));
     display: flex;
     .menu {
       flex: 1.5;
-      background-color: #3da8f5;
     }
     .context {
       flex: 6;
-      background-color: #d56d58;
     }
     .side-bar {
       flex: 2.5;
